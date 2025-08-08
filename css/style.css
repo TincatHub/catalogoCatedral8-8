@@ -234,6 +234,11 @@ header .barracentral__buscador__search {
   overflow: hidden;
 }
 @media screen and (max-width: 576px) {
+  header .barracentral__buscador__search {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+@media screen and (max-width: 576px) {
   header .barracentral__buscador__contacto a span {
     display: none;
   }

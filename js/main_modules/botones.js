@@ -129,12 +129,19 @@ function botonVaciarClicked() {
 // SUPABASE INTEGRATION: Eventos carrito header (nuevo botón en encabezado)
 DomElements.botonCarritoHeader.addEventListener("click", function(){
     console.log("Botón carrito header clickeado");
-    DomElements.carrito.classList.remove("cerrado");
+    if (DomElements.carrito) {
+        DomElements.carrito.classList.remove("cerrado");
+        console.log("Carrito abierto");
+    } else {
+        console.error("Elemento carrito no encontrado");
+    }
 }); 
 
 DomElements.cerrarCarrito.addEventListener("click", function(){
     console.log("Cerrando carrito");
-    DomElements.carrito.classList.add("cerrado");
+    if (DomElements.carrito) {
+        DomElements.carrito.classList.add("cerrado");
+    }
 });
 
 // SUPABASE INTEGRATION: Actualizar numerito en header
@@ -145,14 +152,18 @@ export function estaVacioCheck() {
         
         // Animación shake en header
         DomElements.numeritoHeader.classList.remove("shake");
-        DomElements.numeritoHeader.offsetWidth;
+        void DomElements.numeritoHeader.offsetWidth; // Force reflow
         DomElements.numeritoHeader.classList.add("shake");
         
         console.log("Numerito actualizado:", numerito);
+    } else {
+        console.error("Elemento numeritoHeader no encontrado");
     }
     
     if(numerito == "0" || numerito == null) {
-        DomElements.carrito.classList.add("cerrado");
+        if (DomElements.carrito) {
+            DomElements.carrito.classList.add("cerrado");
+        }
     }
 }
 

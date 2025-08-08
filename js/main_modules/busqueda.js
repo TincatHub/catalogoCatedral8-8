@@ -54,35 +54,69 @@ export function categoriaClick(event, productos) {
     });
     event.target.classList.add("active");
     
+    const subcategoriasContainer = document.getElementById('subcategoriasContainer');
+    const subcategoriasBotones = document.getElementById('subcategoriasBotones');
+    
     // SUPABASE INTEGRATION: Filtrar por categoria (product.category)
     const result = productos.filter(producto => producto.categoria === event.target.textContent);
+    
+    // Obtener subcategorías únicas para esta categoría
+    const subcategorias = [...new Set(result.map(producto => producto.subcategoria).filter(sub => sub && sub.trim() !== ''))];
+    
+    if (subcategorias.length > 1) {
+        // Mostrar botones de subcategorías
+        subcategoriasContainer.style.display = 'block';
+        subcategoriasBotones.innerHTML = `
+            <button class="subcategoria-btn active" data-subcategoria="todas">Todas</button>
+            ${subcategorias.map(subcategoria => 
+                `<button class="subcategoria-btn" data-subcategoria="${subcategoria}">${subcategoria}</button>`
+            ).join('')}
+        `;
+        
+        // Agregar eventos a los botones de subcategorías
+        subcategoriasBotones.addEventListener('click', function(e) {
+            if (e.target.classList.contains('subcategoria-btn')) {
+                // Remover clase active de todos los botones
+                subcategoriasBotones.querySelectorAll('.subcategoria-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                // Agregar clase active al botón clickeado
+                e.target.classList.add('active');
+                
+                const subcategoriaSeleccionada = e.target.dataset.subcategoria;
+                
+                if (subcategoriaSeleccionada === 'todas') {
+                    imprimirProductos(listadoProductos, result);
+                } else {
+                    const productosFiltrados = result.filter(producto => 
+                        producto.subcategoria === subcategoriaSeleccionada
+                    );
+                    imprimirProductos(listadoProductos, productosFiltrados);
+                }
+            }
+        });
+    } else {
+        // Ocultar subcategorías si no hay suficientes
+        subcategoriasContainer.style.display = 'none';
+    }
+    
     imprimirProductos(listadoProductos, result);
 
     // Si es la categoría de Todos, solamente imprime nuevamente todos los productos fetcheados
     if(event.target.textContent === "Todos los productos") {
+        subcategoriasContainer.style.display = 'none';
         imprimirProductos(listadoProductos, productos);
     // Si la categoría está vacía, imprime el mensaje de error
     } else if(result.length === 0) {
+        subcategoriasContainer.style.display = 'none';
         let noHayCoincidencias = document.createElement("div");
         noHayCoincidencias.className = "noHayCoincidencias";
         noHayCoincidencias.innerHTML = `
         <h4>De momento no hay productos en esta categoría ${event.target.textContent}.</h4>`;
-        // <a class="verTodos">Ver todos los productos</a>
         
         listadoProductos.appendChild(noHayCoincidencias);
-    // Si hay resultados, imprime los productos en esa categoría con su título
-    } else {
-        // let nombreCategoria = document.createElement("h3");
-        // nombreCategoria.className = "nombreCategoria";
-        // nombreCategoria.innerHTML = `
-        // ${event.target.textContent}
-        // <a class="verTodos">Ver todos los productos</a>
-        // `;
-        // listadoProductos.prepend(nombreCategoria);
-
     }
-
-    // asignarBotonVerTodos(productos);
 }
 
 // SUPABASE INTEGRATION: Nueva función para búsqueda directa en base de datos

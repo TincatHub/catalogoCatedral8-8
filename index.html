@@ -26,30 +26,33 @@
                         <img src="img/logocat-1.png" alt="Logo principal" width="400px">
                     </div>
                     <div class="col-md-8 barracentral__buscador">
-                        <div class="barracentral__buscador__contacto">
-                            <a href="tel:011158102407">
-                                <i class="fas fa-phone"></i><span>011 15-58102407</span>
-                            </a>
-                            <a href="https://wa.me/5491158102407" target="_blank">
-                                <i class="fab fa-whatsapp"></i><span>5491158102407</span>
-                            </a>
-                            <a href="mailto:hola@monotienda.com">
-                                <i class="far fa-envelope-open"></i><span>mailcatedral@gmail.com</span>
-                            </a>
-                            <!-- <a href="https://facebook.com/monotiendalatam" target="_blank">
-                                <i class="fab fa-facebook-f"></i>
-                            </a>
-                            <a href="https://instagram.com/monotienda.ar" target="_blank">
-                                <i class="fab fa-instagram"></i>
-                            </a> -->
-                        </div>
-                        <!-- Carrito en el encabezado movido al extremo derecho -->
-                        <div class="barracentral__buscador__carrito">
-                            <div id="botonCarritoHeader" class="carrito-header"> 
-                                <div class="numerito-header"><div><p id="numeritoHeader">0</p></div></div>
-                                <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                        <!-- Nuevo contenedor para organizar elementos -->
+                        <div class="barracentral__contenido">
+                            <!-- Información de contacto centrada -->
+                            <div class="barracentral__buscador__contacto">
+                                <a href="tel:011158102407">
+                                    <i class="fas fa-phone"></i><span>011 15-58102407</span>
+                                </a>
+                                <a href="https://wa.me/5491158102407" target="_blank">
+                                    <i class="fab fa-whatsapp"></i><span>5491158102407</span>
+                                </a>
+                                <a href="mailto:hola@monotienda.com">
+                                    <i class="far fa-envelope-open"></i><span>mailcatedral@gmail.com</span>
+                                </a>
+                            </div>
+                            
+                            <!-- Carrito en el extremo derecho -->
+                            <div class="barracentral__carrito">
+                                <div id="botonCarritoHeader" class="carrito-header"> 
+                                    <div class="numerito-header">
+                                        <p id="numeritoHeader">0</p>
+                                    </div>
+                                    <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                                </div>
                             </div>
                         </div>
+                        
+                        <!-- Barra de búsqueda centrada -->
                         <form class="barracentral__buscador__search prueba" id="buscadorTop">
                             <input type="text" class="campobuscar" placeholder="Buscar productos">
                             <input type="submit" class="botonbuscar" value="🔎︎">
@@ -136,7 +139,20 @@
     <div class="container-fluid bg_light">
         <div class="container">
             <div class="row">
-                <div class="col-md-9 offset-md-3 productos" id="listadoProductos">
+                <div class="col-md-9 offset-md-3">
+                    <!-- Contenedor para subcategorías -->
+                    <div class="subcategorias-container" id="subcategoriasContainer" style="display: none;">
+                        <div class="subcategorias-botones" id="subcategoriasBotones">
+                            <!-- Los botones de subcategorías se insertarán aquí dinámicamente -->
+                        </div>
+                    </div>
+                    
+                    <!-- Contenedor para productos -->
+                    <div class="productos-container">
+                        <div class="productos" id="listadoProductos">
+                            <!-- Los productos se mostrarán aquí -->
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

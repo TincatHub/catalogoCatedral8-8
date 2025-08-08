@@ -99,13 +99,25 @@ header .barracentral__buscador {
       -ms-flex-pack: center;
           justify-content: center;
   gap: 1rem;
+  position: relative;
+}
+
+/* Nuevo contenedor para organizar elementos */
+header .barracentral__contenido {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  position: relative;
 }
 
 header .barracentral__buscador__contacto {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  justify-content: center;
   gap: 1.6rem;
+  flex: 1;
 }
 
 @media screen and (max-width: 576px) {
@@ -148,8 +160,15 @@ header .barracentral__buscador__contacto a:hover {
   color: #170ad8 !important;
 }
 
-/* Carrito en el encabezado */
-.carrito-header {
+/* Contenedor del carrito */
+header .barracentral__carrito {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* Carrito en el encabezado - actualizado */
+header .carrito-header {
   position: relative;
   display: flex;
   align-items: center;
@@ -160,13 +179,15 @@ header .barracentral__buscador__contacto a:hover {
   transition: all 0.3s ease;
   padding: 0.5rem;
 }
-/* color al que cambia cuando pasas sobre el carrito */
-.carrito-header:hover {
+
+/* Color al que cambia cuando pasas sobre el carrito */
+header .carrito-header:hover {
   color: #170ad8 !important;
   transform: scale(1.1);
 }
-/* numero en el carrito del encabezado */
-.numerito-header {
+
+/* Número en el carrito del encabezado */
+header .numerito-header {
   position: absolute;
   top: -1.1rem;
   right: -1.5rem;
@@ -180,15 +201,21 @@ header .barracentral__buscador__contacto a:hover {
   font-size: 1.2rem;
 }
 
-.numerito-header p {
+header .numerito-header p {
   color: white;
   margin: 0;
   line-height: 1;
   font-weight: 600;
 }
 
-.numerito-header #numeritoHeader.shake {
+header .numerito-header #numeritoHeader.shake {
   animation: shake 0.4s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+}
+
+/* Barra de búsqueda centrada */
+header .barracentral__buscador__search {
+  margin: 1rem auto 0 auto;
+  max-width: 500px;
 }
 
 @media screen and (max-width: 576px) {
@@ -196,61 +223,78 @@ header .barracentral__buscador__contacto a:hover {
     display: none;
   }
   
-  .carrito-header {
+  header .carrito-header {
     font-size: 2rem;
   }
   
-  .numerito-header {
+  header .numerito-header {
     width: 1.8rem;
     height: 1.8rem;
     font-size: 1.1rem;
   }
-}
-
-header .barracentral__buscador__search {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-shadow: 1px 2px 4px 1px rgba(0, 0, 0, 0.1);
-          box-shadow: 1px 2px 4px 1px rgba(0, 0, 0, 0.1);
-  border-radius: 1rem;
-  border: 1px solid #e2e2e2;
-  overflow: hidden;
-}
-
-@media screen and (max-width: 576px) {
-  header .barracentral__buscador__search {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
+  
+  header .barracentral__contenido {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  header .barracentral__carrito {
+    position: absolute;
+    top: 0;
+    right: 0;
   }
 }
 
-header .barracentral__buscador__search .campobuscar {
-  -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
-  height: 3rem;
-  padding: 2rem;
-  border: 0;
+/* Estilos para subcategorías */
+.subcategorias-container {
+  margin-bottom: 2rem;
+  padding: 2rem 0;
+}
+
+.subcategorias-botones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.subcategoria-btn {
+  padding: 0.8rem 1.5rem;
+  background: #f8f9fa;
+  border: 2px solid #170ad8;
+  border-radius: 25px;
+  color: #170ad8;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
   font-size: 1.4rem;
 }
 
-header .barracentral__buscador__search .campobuscar::-webkit-input-placeholder {
-  font-size: 1.4rem;
+.subcategoria-btn:hover,
+.subcategoria-btn.active {
+  background: #170ad8;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(23, 10, 216, 0.3);
 }
 
-header .barracentral__buscador__search .campobuscar:-ms-input-placeholder {
-  font-size: 1.4rem;
+/* Contenedor de productos */
+.productos-container {
+  width: 100%;
 }
 
-header .barracentral__buscador__search .campobuscar::-ms-input-placeholder {
-  font-size: 1.4rem;
+@media screen and (max-width: 576px) {
+  .subcategorias-botones {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .subcategoria-btn {
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+  }
 }
 
 header .barracentral__buscador__search .campobuscar::placeholder {

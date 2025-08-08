@@ -146,8 +146,15 @@ function actualizarNumerito() {
 // SUPABASE INTEGRATION: Cargar carrito desde localStorage manteniendo compatibilidad
 // Los productos guardados mantienen la estructura: sku=product.id, titulo=product.name, etc.
 numerito = localStorage.getItem("numerito");
+DomElements.numeritoHeader.textContent = numerito || 0;
+
 if(numerito > 0) {
     carritoAgregados = localStorage.getItem("productos");
     carritoAgregados = JSON.parse(carritoAgregados);
     imprimirProductosEnCarrito();
+} else {
+    // Inicializar numerito si no existe
+    numerito = 0;
+    localStorage.setItem("numerito", numerito);
+    DomElements.numeritoHeader.textContent = numerito;
 }

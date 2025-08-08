@@ -32,6 +32,39 @@ document.addEventListener('productAdded', (e) => {
   console.log('Producto agregado al carrito:', productData)
   
   // Try to integrate with existing cart system
+  const carritoAgregados = JSON.parse(localStorage.getItem("productos") || "[]")
+  
+  // Check if product already exists in cart
+  const existingProductIndex = carritoAgregados.findIndex(p => p.sku == productData.sku)
+  
+  if (existingProductIndex !== -1) {
+    carritoAgregados[existingProductIndex].cantidad++
+  } else {
+    carritoAgregados.push({
+      ...productData,
+      cantidad: 1
+    })
+  }
+  
+  // Save to localStorage
+  localStorage.setItem("productos", JSON.stringify(carritoAgregados))
+  
+  // Update header cart number
+  const totalItems = carritoAgregados.reduce((sum, item) => sum + item.cantidad, 0)
+  localStorage.setItem("numerito", totalItems)
+  
+  const numeritoHeader = document.getElementById('numeritoHeader')
+  if (numeritoHeader) {
+    numeritoHeader.textContent = totalItems
+    console.log('Numerito header actualizado:', totalItems)
+    
+    // Add shake animation
+    numeritoHeader.classList.remove("shake")
+    void numeritoHeader.offsetWidth // Force reflow
+    numeritoHeader.classList.add("shake")
+  }
+  
+  // Try to update existing cart if available
   if (window.carritoAgregados && typeof window.imprimirProductosEnCarrito === 'function') {
     // Check if product already exists in cart
     const existingProduct = window.carritoAgregados.find(p => p.sku == productData.sku)
@@ -46,25 +79,17 @@ document.addEventListener('productAdded', (e) => {
     }
     
     window.imprimirProductosEnCarrito()
-    
-    // Update header cart number
-    const numeritoHeader = document.getElementById('numeritoHeader')
-    if (numeritoHeader) {
-      const totalItems = window.carritoAgregados.reduce((sum, item) => sum + item.cantidad, 0)
-      numeritoHeader.textContent = totalItems
-      console.log('Numerito header actualizado:', totalItems)
-    }
-    
-    // Show toast notification if available
-    if (window.Toastify) {
-      window.Toastify({
-        text: "Producto agregado",
-        duration: 3000,
-        close: true,
-        className: "toastifyToast"
-      }).showToast()
-    }
-  } else {
-    console.log('Sistema de carrito no disponible')
   }
+  
+  // Show toast notification if available
+  if (window.Toastify) {
+    window.Toastify({
+      text: "Producto agregado",
+      duration: 3000,
+      close: true,
+      className: "toastifyToast"
+    }).showToast()
+  }
+  
+  console.log('Carrito actualizado correctamente')
 })

@@ -212,11 +212,11 @@ header .numerito-header #numeritoHeader.shake {
   animation: shake 0.4s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
 }
 
-/* Barra de búsqueda centrada
+/* Barra de búsqueda centrada*/
 header .barracentral__buscador__search {
   margin: 3rem auto 0 auto;
   max-width: 600px;
-} */
+} 
 header .barracentral__buscador__search {
   display: -webkit-box;
   display: -ms-flexbox;

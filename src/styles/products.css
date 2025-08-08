@@ -17,7 +17,7 @@
   flex-direction: row;
   justify-content: center;
   gap: 15px;
-  max-width: 1200px;
+  max-width: 1100px;
 }
 
 .subcategory-btn {
@@ -73,13 +73,13 @@
 
 /* Subcategories Grid */
 .subcategories-container {
-  width: 100%;
+  width: 1200px;
   padding: 10px 0;
 }
 
 .subcategories-grid {
   display: grid;   
-  grid-template-columns: repeat(auto,minmax(250px,250px));
+  grid-template-columns: repeat(auto,minmax(230px,280px));
   gap: 10px;
   margin-bottom: 10px;
 }

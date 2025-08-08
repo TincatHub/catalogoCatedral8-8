@@ -282,7 +282,7 @@ header .barracentral__buscador__search .campobuscar {
 
 .subcategorias-botones {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: row;
   justify-content: center;
   gap: 1rem;
   margin-bottom: 2rem;

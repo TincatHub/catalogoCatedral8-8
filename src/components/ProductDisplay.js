@@ -178,9 +178,7 @@ export class ProductDisplay {
       <div class="subcategories-container">        
         <div class="subcategories-buttons-wrapper">
           <div class="subcategories-buttons">
-            <button class="subcategory-btn show-all-btn" data-category="${category}">
-              Ver todos
-            </button>
+         
             ${subcategories.map(subcategory => `
               <button class="subcategory-btn" data-category="${category}" data-subcategory="${subcategory}">
                 ${subcategory}

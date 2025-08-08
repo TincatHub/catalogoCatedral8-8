@@ -5,8 +5,8 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-bottom: 30px;
-  padding: 20px 0;
+  margin-bottom: 20px;
+  padding: 10px 0;
   background: #f8f9fa;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -32,7 +32,7 @@
   padding: 0 2em;
   border-radius: 0.3em;
   color: #fff;
-  height: 2.6em;
+  height: 2.5em;
   text-shadow: 0 1px 0 rgb(0 0 0 / 40%);
   transition: box-shadow 0.15s ease, transform 0.15s ease;
   font-weight: 600;

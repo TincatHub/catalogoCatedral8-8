@@ -276,6 +276,7 @@ header .barracentral__buscador__search .campobuscar {
 
 /* Estilos para subcategorías */
 .subcategorias-container {
+  width: 100%;
   margin-bottom: 2rem;
   padding: 2rem 0;
 }

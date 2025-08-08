@@ -1,0 +1,268 @@
+@import "colors";
+
+.carrito {
+    position: fixed;
+    z-index: 99;
+    bottom: 1rem;
+    right: 1rem;
+    width: 500px;
+    max-height: 600px;  
+    border-radius: 2rem;
+    flex-direction: column;
+    box-shadow: 0px 0px 10px #b1b1b1;
+    visibility: visible;
+    opacity: 1;
+    transition: opacity .3s linear;
+    overflow: hidden;
+
+    @include movil {
+        max-width: 95%;
+    }
+
+    &.cerrado {
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0s .3s, opacity .3s linear;
+    }
+
+    &__titulo {
+        border-bottom: #cccccc solid 1px;
+        display: grid;
+        align-items: center;
+        grid-template-columns: 4fr 2fr 1fr;
+        padding: .5rem 2rem .5rem 1rem;
+
+        h4 {
+            font-size: 2.2rem;
+            color: $primario;
+            margin: 0;
+        }
+
+        .cerrar {
+            justify-self: flex-end;
+            font-size: 2.2rem;
+            cursor: pointer;
+        }
+
+        .vaciar {
+            justify-self: flex-end;
+            font-size: 1.3rem;
+            cursor: pointer;
+        }
+    }
+
+    &__productosTitulos {
+        display: flex;
+        padding: 2rem;
+        padding-bottom: .5rem;
+        font-size: 1.4rem;
+        gap: 2rem;
+
+        &--imagen {
+            width: 15%;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        &--titulo {
+            width: 40%;
+            flex-grow: 1;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        &--cantidad {
+            width: 15%;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        &--precio {
+            width: 20%;
+            margin-right: 1rem;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        &--borrar {
+            width: 10%;
+        }
+    }
+
+    &__productos {
+        display: flex;
+        flex-direction: column;
+        padding: 2rem;
+        gap: 2rem;
+        padding-top: 1rem;
+        overflow-y: scroll;
+        max-height: 60vh;
+
+        .nuevoProducto {
+            display: grid;
+            grid-template-columns: 2fr 7fr 2fr 4fr 1fr;
+            gap: 1rem;
+            align-items: center;
+
+            .carritoImagen {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                aspect-ratio: 1;
+                background: white;
+
+                img {
+                    max-width: 100%;
+                    max-height: 100%;
+                }
+            }
+
+            .carritoTitulo {
+                font-size: 1.6rem;
+                display: flex;
+                align-items: center;
+            }
+
+            .carritoCantidad {
+                font-size: 1.6rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 1rem;
+
+                .menos, .mas {
+                    font-size: 2.2rem;
+                    font-weight: 600;
+                    cursor: pointer;
+                }
+            }
+
+            .carritoPrecio {
+                font-size: 1.8rem;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+            }
+
+            .carritoBorrar {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                i {
+                    color: #ca1c1c;
+                    font-size: 1.2rem;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    &__footer {
+        padding: 1rem;
+        background: $primario;
+        cursor: pointer;
+        transition: .3s;
+        display: flex;
+        justify-content: center;
+
+        &:hover {
+            background: black;
+
+            h5 {
+                transform: translateX(0);
+
+                .carritoFlecha {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+        }
+
+        h5 {
+            color: white;
+            font-size: 2rem;
+            transform: translateX(10px);
+            transition: all .3s;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+
+            #carritoTotal {
+                font-weight: 600;
+                font-size: 2.4rem;
+            }
+
+            .carritoFlecha {
+                transform: translateX(-20px);
+                opacity: 0;
+                transition: all .3s;
+                margin-left: 1rem;
+            }
+        }
+    }
+}
+
+#botonCarrito {
+    position: fixed;
+    z-index: 99;
+    bottom: 1rem;
+    right: 1rem;
+    font-size: 4.6rem;
+    background: white;
+    padding: .5rem 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0px 0px 10px #b1b1b1;
+    cursor: pointer;
+    visibility: visible;
+    opacity: 1;
+    transition: opacity .3s linear;
+
+    &.cerrado {
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0s .3s, opacity .3s linear;
+    }
+
+    .numerito {
+        position: absolute;
+        top: -1rem;
+        left: -1rem;
+        background: $primario;
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        #numerito {
+            &.shake {
+                -webkit-animation: shake .4s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+                        animation: shake .4s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+            }
+        }
+
+        p {
+            font-size: 1.4rem;
+            color: white;
+            margin: 0;
+            line-height: 1;
+        }
+    }
+
+    i {
+        color: $primario;
+    }
+}
+
+.swal-footer {
+    display: flex;
+    justify-content: center;
+}
+
+
+
+ @-webkit-keyframes shake{0%,100%{-webkit-transform:translateX(0);transform:translateX(0)}10%,30%,50%,70%{-webkit-transform:translateX(-2px);transform:translateX(-2px)}20%,40%,60%{-webkit-transform:translateX(2px);transform:translateX(2px)}80%{-webkit-transform:translateX(2px);transform:translateX(2px)}90%{-webkit-transform:translateX(-2px);transform:translateX(-2px)}}
+ @keyframes shake{0%,100%{-webkit-transform:translateX(0);transform:translateX(0)}10%,30%,50%,70%{-webkit-transform:translateX(-2px);transform:translateX(-2px)}20%,40%,60%{-webkit-transform:translateX(2px);transform:translateX(2px)}80%{-webkit-transform:translateX(2px);transform:translateX(2px)}90%{-webkit-transform:translateX(-2px);transform:translateX(-2px)}}

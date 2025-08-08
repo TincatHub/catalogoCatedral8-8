@@ -212,11 +212,26 @@ header .numerito-header #numeritoHeader.shake {
   animation: shake 0.4s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
 }
 
-/* Barra de búsqueda centrada */
+/* Barra de búsqueda centrada
 header .barracentral__buscador__search {
   margin: 3rem auto 0 auto;
   max-width: 600px;
-}
+} */
+header .barracentral__buscador__search {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-shadow: 1px 2px 4px 1px rgba(0, 0, 0, 0.1);
+          box-shadow: 1px 2px 4px 1px rgba(0, 0, 0, 0.1);
+  border-radius: 1rem;
+  border: 1px solid #e2e2e2;
+  overflow: hidden;
 
 @media screen and (max-width: 576px) {
   header .barracentral__buscador__contacto a span {

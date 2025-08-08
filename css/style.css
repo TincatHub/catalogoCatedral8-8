@@ -214,8 +214,8 @@ header .numerito-header #numeritoHeader.shake {
 
 /* Barra de búsqueda centrada */
 header .barracentral__buscador__search {
-  margin: 1rem auto 0 auto;
-  max-width: 800px;
+  margin: 2rem auto 0 auto;
+  max-width: 600px;
 }
 
 @media screen and (max-width: 576px) {

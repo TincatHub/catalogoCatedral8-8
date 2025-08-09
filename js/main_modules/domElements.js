@@ -14,3 +14,13 @@ export const botonVaciar = document.getElementById("vaciarCarrito");
 // export const verTodos = document.querySelector(".verTodos");
 export const tituloCategorias = document.querySelector("#listadoCategorias .titulo");
 export const botonesWhatsApp = document.querySelectorAll('.producto__whatsapp');
+// **VERIFICACIÓN DE ELEMENTOS DEL DOM**
+// Verificar que los elementos críticos existan al cargar
+console.log('Elementos del DOM cargados:', {
+    botonCarritoHeader: !!botonCarritoHeader,
+    numeritoHeader: !!numeritoHeader,
+    cerrarCarrito: !!cerrarCarrito,
+    carrito: !!carrito,
+    carritoProductos: !!carritoProductos,
+    carritoTotal: !!carritoTotal
+});

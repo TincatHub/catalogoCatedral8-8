@@ -104,37 +104,6 @@ export class ProductDisplay {
         document.querySelectorAll('.category-item a').forEach(a => a.classList.remove('active'))
         categoryElement.classList.add('active')
       }
-      
-      // **MANEJO DE CLICKS EN BOTONES "AGREGAR AL PEDIDO"**
-      // Detecta cuando se hace clic en los botones de agregar producto desde las tarjetas
-      if (e.target.classList.contains('producto__agregar')) {
-        e.preventDefault()
-        
-        // Obtener el ID del producto desde el atributo data
-        const productId = e.target.dataset.productId
-        
-        if (productId) {
-          console.log('Agregando producto al carrito desde tarjeta, ID:', productId)
-          
-          try {
-            // Obtener los datos completos del producto desde la base de datos
-            const { data: product, error } = await supabase
-              .from('products')
-              .select('*')
-              .eq('id', productId)
-              .single()
-
-            if (error) throw error
-            
-            // Agregar el producto al carrito usando la misma función que el modal
-            this.addProductToCart(product)
-            
-          } catch (error) {
-            console.error('Error obteniendo producto para carrito:', error)
-            this.showCartNotification('Error al agregar producto', 'error')
-          }
-        }
-      }
     })
 
     // Product "Ver más" clicks
@@ -322,7 +291,7 @@ export class ProductDisplay {
         </div>
         ${product.on_sale ? '<div class="producto__oferta-badge">EN OFERTA</div>' : ''}
         ${product.featured ? '<div class="producto__destacado-badge">DESTACADO</div>' : ''}
-        <div class="producto__agregar" data-product-id="${product.id}">AGREGAR AL PEDIDO</div>
+        <div class="producto__agregar">AGREGAR AL PEDIDO</div>
         <div class="producto__ver-mas">VER MÁS</div>
       </div>
     `
@@ -362,126 +331,18 @@ export class ProductDisplay {
   }
 
   addProductToCart(product) {
-    // **FUNCIONALIDAD DE AGREGAR AL CARRITO**
-    // Esta función maneja la adición de productos al carrito de compras
-    // Integra con el sistema de carrito existente y actualiza la interfaz
-    
-    try {
-      // Obtener el carrito actual del localStorage
-      let carritoAgregados = JSON.parse(localStorage.getItem("productos") || "[]")
-      
-      // Preparar datos del producto en el formato esperado por el sistema existente
-      const productoParaCarrito = {
-        sku: product.id,                    // ID único del producto
-        titulo: product.description,        // Nombre/descripción del producto
-        imagen: product.image_url,          // URL de la imagen del producto
-        precio: product.on_sale && product.sale_price ? product.sale_price : product.price, // Precio considerando ofertas
-        categoria: product.category,        // Categoría del producto
-        installments: product.installments || 12, // Número de cuotas disponibles
-        sale_price: product.sale_price,     // Precio de oferta si existe
-        on_sale: product.on_sale || false,  // Indicador de si está en oferta
-        stock: product.stock || 0,          // Stock disponible
-        cantidad: 1                         // Cantidad inicial a agregar
+    // Integrate with existing cart system
+    const event = new CustomEvent('productAdded', {
+      detail: {
+        sku: product.id,
+        titulo: product.description,
+        imagen: product.image_url,
+        precio: product.on_sale && product.sale_price ? product.sale_price : product.price,
+        categoria: product.category
       }
-      
-      // Verificar si el producto ya existe en el carrito
-      const productoExistente = carritoAgregados.find(item => item.sku === product.id)
-      
-      if (productoExistente) {
-        // Si ya existe, incrementar la cantidad
-        productoExistente.cantidad++
-        console.log('Producto existente, incrementando cantidad:', productoExistente)
-      } else {
-        // Si no existe, agregarlo al carrito
-        carritoAgregados.push(productoParaCarrito)
-        console.log('Nuevo producto agregado al carrito:', productoParaCarrito)
-      }
-      
-      // Guardar el carrito actualizado en localStorage
-      localStorage.setItem("productos", JSON.stringify(carritoAgregados))
-      
-      // Calcular y actualizar el número total de productos
-      const totalItems = carritoAgregados.reduce((sum, item) => sum + item.cantidad, 0)
-      localStorage.setItem("numerito", totalItems)
-      
-      // Actualizar el numerito en el header
-      const numeritoHeader = document.getElementById('numeritoHeader')
-      if (numeritoHeader) {
-        numeritoHeader.textContent = totalItems
-        
-        // Agregar animación de shake al numerito
-        numeritoHeader.classList.remove("shake")
-        void numeritoHeader.offsetWidth // Forzar reflow para reiniciar la animación
-        numeritoHeader.classList.add("shake")
-        
-        console.log('Numerito actualizado:', totalItems)
-      }
-      
-      // Actualizar la visualización del carrito si está disponible
-      if (window.imprimirProductosEnCarrito && typeof window.imprimirProductosEnCarrito === 'function') {
-        window.carritoAgregados = carritoAgregados
-        window.imprimirProductosEnCarrito()
-        console.log('Carrito visual actualizado')
-      }
-      
-      // Mostrar notificación de éxito
-      this.showCartNotification('Producto agregado al carrito')
-      
-      // Disparar evento personalizado para compatibilidad con otros sistemas
-      const event = new CustomEvent('productAdded', {
-        detail: productoParaCarrito
-      })
-      document.dispatchEvent(event)
-      
-    } catch (error) {
-      console.error('Error agregando producto al carrito:', error)
-      this.showCartNotification('Error al agregar producto', 'error')
-    }
-  }
-
-  /**
-   * Muestra una notificación temporal cuando se agrega un producto al carrito
-   * @param {string} message - Mensaje a mostrar
-   * @param {string} type - Tipo de notificación ('success' o 'error')
-   */
-  showCartNotification(message, type = 'success') {
-    // Crear elemento de notificación
-    const notification = document.createElement('div')
-    notification.className = `cart-notification ${type}`
-    notification.textContent = message
+    })
     
-    // Estilos inline para la notificación
-    notification.style.cssText = `
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: ${type === 'success' ? '#28a745' : '#dc3545'};
-      color: white;
-      padding: 15px 20px;
-      border-radius: 8px;
-      font-weight: 600;
-      z-index: 10000;
-      transform: translateX(100%);
-      transition: transform 0.3s ease;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    `
-    
-    document.body.appendChild(notification)
-    
-    // Mostrar la notificación con animación
-    setTimeout(() => {
-      notification.style.transform = 'translateX(0)'
-    }, 100)
-    
-    // Ocultar y remover la notificación después de 3 segundos
-    setTimeout(() => {
-      notification.style.transform = 'translateX(100%)'
-      setTimeout(() => {
-        if (notification.parentElement) {
-          document.body.removeChild(notification)
-        }
-      }, 300)
-    }, 3000)
+    document.dispatchEvent(event)
   }
 
   showError(message) {

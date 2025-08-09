@@ -851,31 +851,6 @@ footer .footerCarpi {
   cursor: pointer;
 }
 
-/* **ESTILOS PARA CARRITO VACÍO** */
-.carrito-vacio {
-  text-align: center;
-  padding: 2rem;
-  color: #666;
-  font-size: 1.6rem;
-  font-style: italic;
-}
-
-/* **ESTILOS PARA NOTIFICACIONES DEL CARRITO** */
-.cart-notification {
-  font-family: 'Kanit', sans-serif;
-  font-size: 1.4rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-
-.cart-notification.success {
-  background: #28a745 !important;
-}
-
-.cart-notification.error {
-  background: #dc3545 !important;
-}
-
 .carrito__footer {
   padding: 1rem;
   background: #170ad8;

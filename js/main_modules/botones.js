@@ -137,19 +137,13 @@ DomElements.botonCarritoHeader.addEventListener("click", function(){
     }
 }); 
 
-if (DomElements.cerrarCarrito) {
-    DomElements.cerrarCarrito.addEventListener("click", function(){
-        console.log("Cerrando carrito");
-        if (DomElements.carrito) {
-            DomElements.carrito.classList.add("cerrado");
-        }
-    });
-} else {
-    console.error("Elemento cerrarCarrito no encontrado");
-}
+DomElements.cerrarCarrito.addEventListener("click", function(){
+    console.log("Cerrando carrito");
+    if (DomElements.carrito) {
+        DomElements.carrito.classList.add("cerrado");
+    }
+});
 
-// **FUNCIÓN PARA VERIFICAR SI EL CARRITO ESTÁ VACÍO**
-// Actualiza la interfaz y oculta el carrito si no hay productos
 // SUPABASE INTEGRATION: Actualizar numerito en header
 export function estaVacioCheck() {
     // Actualizar numerito en header
@@ -166,7 +160,6 @@ export function estaVacioCheck() {
         console.error("Elemento numeritoHeader no encontrado");
     }
     
-    // Cerrar carrito si está vacío
     if(numerito == "0" || numerito == null) {
         if (DomElements.carrito) {
             DomElements.carrito.classList.add("cerrado");
@@ -174,8 +167,6 @@ export function estaVacioCheck() {
     }
 }
 
-// **EVENTOS DEL CARRITO EN EL HEADER**
-// Maneja la apertura y cierre del carrito desde el botón del header
 
 // Asigna el botón de Ver todos en las búsquedas y en las categorías
 // export function asignarBotonVerTodos(productos) {
@@ -193,25 +184,12 @@ export function estaVacioCheck() {
 //     DomElements.botonesCategorias.forEach((botonCategoria) => {
 //       botonCategoria.children[0].classList.remove("active"); // Quita las classes active que puedan tener las categorías
 //     });
-if (DomElements.botonCarritoHeader) {
-    DomElements.botonCarritoHeader.addEventListener("click", function(){
-        console.log("Botón carrito header clickeado");
-        if (DomElements.carrito) {
-            DomElements.carrito.classList.remove("cerrado");
-            console.log("Carrito abierto");
-            
-            // Asegurar que el carrito muestre los productos actuales
-            const carritoActual = JSON.parse(localStorage.getItem("productos") || "[]");
-            if (window.carritoAgregados) {
-                window.carritoAgregados = carritoActual;
-            }
-            if (window.imprimirProductosEnCarrito) {
-                window.imprimirProductosEnCarrito();
-            }
-        } else {
-            console.error("Elemento carrito no encontrado");
+// };
+
+DomElements.tituloCategorias.addEventListener("click", function(){
+    if ((screen.width < 577)) {
+        for(let categoria of DomElements.botonesCategorias) {
+            categoria.style.maxHeight = categoria.style.maxHeight === "100px" ? "0px" : "100px";
         }
-    });
-} else {
-    console.error("Elemento botonCarritoHeader no encontrado");
-}
+    }
+}); 

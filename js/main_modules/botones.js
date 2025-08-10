@@ -127,17 +127,139 @@ function botonVaciarClicked() {
 
 
 // SUPABASE INTEGRATION: Eventos carrito header (nuevo botón en encabezado)
+/**
+ * Evento para manejar el click en el botón del carrito en el header
+ * Si el carrito está vacío muestra mensaje, si tiene productos abre el carrito lateral
+ */
 DomElements.botonCarritoHeader.addEventListener("click", function(){
     console.log("Botón carrito header clickeado");
-    if (DomElements.carrito) {
-        DomElements.carrito.classList.remove("cerrado");
-        console.log("Carrito abierto");
+    
+    // Obtener el número actual de productos en el carrito
+    const numeritoActual = parseInt(DomElements.numeritoHeader.textContent) || 0;
+    console.log("Numerito actual:", numeritoActual);
+    
+    if (numeritoActual === 0) {
+        // Si el carrito está vacío, mostrar mensaje emergente
+        mostrarMensajeCarritoVacio();
     } else {
-        console.error("Elemento carrito no encontrado");
+        // Si hay productos, abrir el carrito lateral
+        if (DomElements.carrito) {
+            DomElements.carrito.classList.remove("cerrado");
+            console.log("Carrito abierto con", numeritoActual, "productos");
+        } else {
+            console.error("Elemento carrito no encontrado");
+        }
     }
 }); 
 
+/**
+ * Función para mostrar mensaje emergente cuando el carrito está vacío
+ */
+function mostrarMensajeCarritoVacio() {
+    // Crear elemento de notificación
+    const notificacion = document.createElement('div');
+    notificacion.className = 'carrito-vacio-notification';
+    notificacion.innerHTML = `
+        <div class="notification-content">
+            <i class="fas fa-shopping-cart"></i>
+            <p>El carrito se encuentra vacío</p>
+        </div>
+    `;
+    
+    // Agregar estilos inline para la notificación
+    notificacion.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #170ad8;
+        color: white;
+        padding: 15px 20px;
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(23, 10, 216, 0.3);
+        z-index: 10000;
+        opacity: 0;
+        transform: translateX(100%);
+        transition: all 0.3s ease;
+        font-family: 'Kanit', sans-serif;
+        min-width: 250px;
+    `;
+    
+    // Estilos para el contenido
+    const content = notificacion.querySelector('.notification-content');
+    content.style.cssText = `
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    `;
+    
+    const icon = notificacion.querySelector('i');
+    icon.style.fontSize = '20px';
+    
+    const text = notificacion.querySelector('p');
+    text.style.cssText = `
+        margin: 0;
+        font-size: 16px;
+        font-weight: 500;
+    `;
+    
+    // Agregar al DOM
+    document.body.appendChild(notificacion);
+    
+    // Mostrar con animación
+    setTimeout(() => {
+        notificacion.style.opacity = '1';
+        notificacion.style.transform = 'translateX(0)';
+    }, 100);
+    
+    // Ocultar después de 3 segundos
+    setTimeout(() => {
+        notificacion.style.opacity = '0';
+        notificacion.style.transform = 'translateX(100%)';
+        
+        // Remover del DOM después de la animación
+        setTimeout(() => {
+            if (notificacion.parentElement) {
+                document.body.removeChild(notificacion);
+            }
+        }, 300);
+    }, 3000);
+}
 DomElements.cerrarCarrito.addEventListener("click", function(){
+/**
+ * Evento para el botón del carrito en el menú de categorías
+ */
+document.addEventListener('DOMContentLoaded', function() {
+    const carritoMenuBoton = document.getElementById('carritoMenuBoton');
+    const numeritoMenu = document.getElementById('numeritoMenu');
+    
+    if (carritoMenuBoton) {
+        carritoMenuBoton.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log("Botón carrito menú clickeado");
+            
+            // Obtener el número actual de productos en el carrito
+            const numeritoActual = parseInt(DomElements.numeritoHeader.textContent) || 0;
+            
+            if (numeritoActual === 0) {
+                // Si el carrito está vacío, mostrar mensaje emergente
+                mostrarMensajeCarritoVacio();
+            } else {
+                // Si hay productos, abrir el carrito lateral
+                if (DomElements.carrito) {
+                    DomElements.carrito.classList.remove("cerrado");
+                    console.log("Carrito abierto desde menú con", numeritoActual, "productos");
+                }
+            }
+        });
+    }
+    
+    // Sincronizar el numerito del menú con el del header
+    if (numeritoMenu) {
+        const numeritoHeaderActual = DomElements.numeritoHeader.textContent || '0';
+        numeritoMenu.textContent = numeritoHeaderActual;
+    }
+});
+
     console.log("Cerrando carrito");
     if (DomElements.carrito) {
         DomElements.carrito.classList.add("cerrado");
@@ -158,6 +280,13 @@ export function estaVacioCheck() {
         console.log("Numerito actualizado:", numerito);
     } else {
         console.error("Elemento numeritoHeader no encontrado");
+    }
+    
+    // Actualizar también el numerito del menú
+    const numeritoMenu = document.getElementById('numeritoMenu');
+    if (numeritoMenu) {
+        numeritoMenu.textContent = numerito;
+        console.log("Numerito menú actualizado:", numerito);
     }
     
     if(numerito == "0" || numerito == null) {

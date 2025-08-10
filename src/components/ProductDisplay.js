@@ -291,7 +291,7 @@ export class ProductDisplay {
         </div>
         ${product.on_sale ? '<div class="producto__oferta-badge">EN OFERTA</div>' : ''}
         ${product.featured ? '<div class="producto__destacado-badge">DESTACADO</div>' : ''}
-        // <div class="producto__agregar">AGREGAR AL PEDIDO</div>
+         <div class="producto__agregar">AGREGAR AL PEDIDO</div>
         <div class="producto__ver-mas">VER MÁS</div>
       </div>
     `

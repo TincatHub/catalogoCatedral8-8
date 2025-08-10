@@ -8,21 +8,21 @@ import { supabase } from "../../src/config/supabase.js";
 
 // SUPABASE INTEGRATION: Botones agregar al carrito con datos de base de datos
 // Busca productos por product.id (sku) en lugar de array local
-export function asignarBotonesAgregar(productos) {
-    const botonesAgregar = document.querySelectorAll('.producto__agregar');
-    botonesAgregar.forEach((botonAgregar) => {
-      botonAgregar.addEventListener('click', function() {
-          botonAgregarClicked(event, productos);
-      }, false);
-    });
-  };
+// export function asignarBotonesAgregar(productos) {
+//     const botonesAgregar = document.querySelectorAll('.producto__agregar');
+//     botonesAgregar.forEach((botonAgregar) => {
+//       botonAgregar.addEventListener('click', function() {
+//           botonAgregarClicked(event, productos);
+//       }, false);
+//     });
+//   };
   
-function botonAgregarClicked(event, productos) {
-    const productoAgregadoPadre = event.target.closest('.producto');
-    // SUPABASE INTEGRATION: Busca producto por ID (sku = product.id)
-    const productoAgregado = productos.find((buscarProducto) => buscarProducto.sku == productoAgregadoPadre.id);
+// function botonAgregarClicked(event, productos) {
+//     const productoAgregadoPadre = event.target.closest('.producto');
+//     // SUPABASE INTEGRATION: Busca producto por ID (sku = product.name)
+//     const productoAgregado = productos.find((buscarProducto) => buscarProducto.sku == productoAgregadoPadre.id);
 
-    // Busca en carrito por sku (product.id)
+    // Busca en carrito por sku (product.name)
     const estaEnCarrito = carritoAgregados.find((buscarSiEsta) => buscarSiEsta.sku == productoAgregadoPadre.id);
     if (estaEnCarrito) {
         estaEnCarrito.cantidad++; // Si está en el Carrito, solo aumenta la cantidad
@@ -60,7 +60,7 @@ function botonMasClicked(event) {
 
 function botonMenosClicked(event) {
     const productoAgregadoPadre = event.target.closest('.nuevoProducto');
-    // SUPABASE INTEGRATION: Busca por sku (product.id)
+    // SUPABASE INTEGRATION: Busca por sku (product.name)
     const productoAgregado = carritoAgregados.find((buscarProducto) => "agregado" + buscarProducto.sku == productoAgregadoPadre.id);
     
     if (productoAgregado.cantidad > 1) {
@@ -81,7 +81,7 @@ export function asignarBotonesBorrar() {
 function botonBorrarClicked(event) {
     const productoAgregadoPadre = event.target.closest('.nuevoProducto');
 
-    // SUPABASE INTEGRATION: Busca por sku (product.id)
+    // SUPABASE INTEGRATION: Busca por sku (product.name)
     const productoAgregado = carritoAgregados.find((buscarProducto) => "agregado" + buscarProducto.sku == productoAgregadoPadre.id);
 
     const index = carritoAgregados.indexOf(productoAgregado); // Busca el index de este producto en el array

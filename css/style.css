@@ -1126,7 +1126,7 @@ footer .footerCarpi {
   text-align: center;
 }
 
-.productos .producto__agregar, .productos .producto__sinStock {
+/* .productos .producto__agregar, .productos .producto__sinStock {
   font-size: 1.5rem;
   text-align: center;
   border: 2px solid #797979;
@@ -1154,7 +1154,7 @@ footer .footerCarpi {
   color: white;
   border-color: #170ad8;
   background: #170ad8;
-}
+} */
 
 .productos .producto__sinStock {
   background: #c4c4c4;

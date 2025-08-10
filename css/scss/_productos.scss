@@ -89,32 +89,32 @@
             }
         }
 
-        &__agregar {
-            font-size: 1.5rem;
-            text-align: center;
-            border: 2px solid #797979;
-            margin-bottom: .6rem;
-            border-radius: .4rem;
-            letter-spacing: -1px;
-            width: 90%;
-            padding: .5rem 0;
-            cursor: pointer;
-            transition: all .2s;
+        // &__agregar {
+        //     font-size: 1.5rem;
+        //     text-align: center;
+        //     border: 2px solid #797979;
+        //     margin-bottom: .6rem;
+        //     border-radius: .4rem;
+        //     letter-spacing: -1px;
+        //     width: 90%;
+        //     padding: .5rem 0;
+        //     cursor: pointer;
+        //     transition: all .2s;
 
-            @include movil {
-                padding: 1rem 0;
-                font-size: 1.8rem;
-                font-weight: 600;
-                margin-top: 1rem;
-                margin-bottom: 1rem;
-            }
+        //     @include movil {
+        //         padding: 1rem 0;
+        //         font-size: 1.8rem;
+        //         font-weight: 600;
+        //         margin-top: 1rem;
+        //         margin-bottom: 1rem;
+        //     }
 
-            &:hover {
-                color: white;
-                border-color: $primario;
-                background: $primario;
-            }
-        }
+        //     &:hover {
+        //         color: white;
+        //         border-color: $primario;
+        //         background: $primario;
+        //     }
+        // }
 
         &__sinStock {
             @extend .producto__agregar;

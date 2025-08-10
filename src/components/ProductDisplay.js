@@ -279,7 +279,7 @@ export class ProductDisplay {
     const installmentDisplayPrice = displayPrice && product.installments
       ? (displayPrice / product.installments).toFixed(2)
       : '0.00'
-
+   // <div class="producto__agregar">AGREGAR AL PEDIDO</div> esta fila estaba en el renglon 294 y mostraba el boton agregar en la carta del producto
     return `
       <div class="producto" id="${product.id}">
         <div class="producto__img">
@@ -291,7 +291,7 @@ export class ProductDisplay {
         </div>
         ${product.on_sale ? '<div class="producto__oferta-badge">EN OFERTA</div>' : ''}
         ${product.featured ? '<div class="producto__destacado-badge">DESTACADO</div>' : ''}
-        <div class="producto__agregar">AGREGAR AL PEDIDO</div>
+     
         <div class="producto__ver-mas">VER MÁS</div>
       </div>
     `

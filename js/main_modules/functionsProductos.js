@@ -77,12 +77,15 @@ export async function loadProductsFromDatabase() {
 
 export let carritoAgregados = []; // Declara el array de los productos agregados al Carrito
 
-// SUPABASE INTEGRATION: Imprime productos en carrito con información de cuotas
-// Muestra: cantidad de cuotas, precio por cuota (installmentPrice), precio total
 export function imprimirProductosEnCarrito() {
+    const carritoProductos = document.getElementById("carritoProductos");
+    if (!carritoProductos) {
+        console.error("Elemento carritoProductos no encontrado");
+        return;
+    }
+    
     carritoProductos.innerHTML = "";
     carritoAgregados.forEach((productoAgregado) => {
-        // Calcular precio por cuota para mostrar en carrito
         const precioUnitario = productoAgregado.on_sale && productoAgregado.sale_price ? 
             productoAgregado.sale_price : productoAgregado.precio;
         const installmentPrice = precioUnitario / (productoAgregado.installments || 12);
@@ -90,7 +93,7 @@ export function imprimirProductosEnCarrito() {
         
         let nuevoProducto = document.createElement("div");
         nuevoProducto.className = "nuevoProducto";
-        nuevoProducto.id = "agregado" + productoAgregado.sku; // product.id
+        nuevoProducto.id = "agregado" + productoAgregado.sku;
         nuevoProducto.innerHTML = `
             <div class="carritoImagen">
                 <img src="${productoAgregado.imagen}" alt="${productoAgregado.titulo}">
@@ -116,9 +119,13 @@ export function imprimirProductosEnCarrito() {
     localStorage.setItem("productos", JSON.stringify(carritoAgregados));
 }
 
-// SUPABASE INTEGRATION: Actualizar precio total considerando ofertas y precios de venta
 function actualizarPrecioTotal() {
-    // Suma precios considerando ofertas (sale_price si on_sale es true)
+    const carritoTotal = document.getElementById("carritoTotal");
+    if (!carritoTotal) {
+        console.error("Elemento carritoTotal no encontrado");
+        return;
+    }
+    
     const precioTotal = carritoAgregados.reduce((suma, producto) => {
         const precioUnitario = producto.on_sale && producto.sale_price ? 
             producto.sale_price : producto.precio;
@@ -131,30 +138,47 @@ function actualizarPrecioTotal() {
 
 export let numerito = 0;
 function actualizarNumerito() {
-    // Se agregan y quitan clases para generar la animación CSS
-    DomElements.numeritoContenedor.classList.remove("shake");
+    const numeritoContenedor = document.getElementById("numerito");
+    const numeritoHeader = document.getElementById("numeritoHeader");
+    
+    if (numeritoContenedor) {
+        numeritoContenedor.classList.remove("shake");
+    }
+    
     DomElements.numeritoContenedor.offsetWidth;
-    DomElements.numeritoContenedor.classList.add("shake");
+    
+    if (numeritoContenedor) {
+        numeritoContenedor.classList.add("shake");
+    }
 
     // Suma todas las cantidades de los productos agregados en el array del carrito
     numerito = carritoAgregados.reduce((suma, productoAgregado) => suma + parseInt(productoAgregado.cantidad), 0);
-    DomElements.numeritoContenedor.textContent = numerito;
+    
+    if (numeritoContenedor) {
+        numeritoContenedor.textContent = numerito;
+    }
+    
+    if (numeritoHeader) {
+        numeritoHeader.textContent = numerito;
+    }
 
     localStorage.setItem("numerito", numerito);
 };
 
-// SUPABASE INTEGRATION: Cargar carrito desde localStorage manteniendo compatibilidad
-// Los productos guardados mantienen la estructura: sku=product.id, titulo=product.name, etc.
 numerito = localStorage.getItem("numerito");
-DomElements.numeritoHeader.textContent = numerito || 0;
+const numeritoHeader = document.getElementById("numeritoHeader");
+if (numeritoHeader) {
+    numeritoHeader.textContent = numerito || 0;
+}
 
 if(numerito > 0) {
     carritoAgregados = localStorage.getItem("productos");
     carritoAgregados = JSON.parse(carritoAgregados);
     imprimirProductosEnCarrito();
 } else {
-    // Inicializar numerito si no existe
     numerito = 0;
     localStorage.setItem("numerito", numerito);
-    DomElements.numeritoHeader.textContent = numerito;
+    if (numeritoHeader) {
+        numeritoHeader.textContent = numerito;
+    }
 }

@@ -274,59 +274,6 @@ header .barracentral__buscador__search .campobuscar {
   }
 }
 
-/* Estilos para subcategorías */
-.subcategorias-container {
-  width: 100%;
-  margin-bottom: 1rem;
-  padding: 1rem 0;
-}
-
-.subcategorias-botones {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-
-.subcategoria-btn {
-  padding: 0.8rem 1.5rem;
-  background: #f8f9fa;
-  border: 2px solid #170ad8;
-  border-radius: 25px;
-  color: #170ad8;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 1.4rem;
-}
-
-.subcategoria-btn:hover,
-.subcategoria-btn.active {
-  background: #170ad8;
-  color: white;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(23, 10, 216, 0.3);
-}
-
-/* Contenedor de productos */
-.productos-container {
-  width: 100%;
-}
-
-@media screen and (max-width: 576px) {
-  .subcategorias-botones {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .subcategoria-btn {
-    width: 100%;
-    max-width: 300px;
-    text-align: center;
-  }
-}
-
 header .barracentral__buscador__search .campobuscar::placeholder {
   font-size: 1.4rem;
 }

@@ -125,7 +125,7 @@ export async function buscarEnBaseDatos(termino) {
         const { data, error } = await supabase
             .from('products')
             .select('*')
-            .or(`description.ilike.%${termino}%,category.ilike.%${termino}%,description_large.ilike.%${termino}%`);
+            .or(`description.ilike.%${termino}%,description_large.ilike.%${termino}%,category.ilike.%${termino}%`);
         
         if (error) throw error;
         

@@ -14,3 +14,6 @@ export const botonVaciar = document.getElementById("vaciarCarrito");
 // export const verTodos = document.querySelector(".verTodos");
 export const tituloCategorias = document.querySelector("#listadoCategorias .titulo");
 export const botonesWhatsApp = document.querySelectorAll('.producto__whatsapp');
+// Elementos del carrito en el menú
+export const botonCarritoMenu = document.getElementById("botonCarritoMenu");
+export const numeritoMenu = document.getElementById("numeritoMenu");

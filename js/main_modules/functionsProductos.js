@@ -148,6 +148,10 @@ function actualizarNumerito() {
 numerito = localStorage.getItem("numerito");
 DomElements.numeritoHeader.textContent = numerito || 0;
 
+// Sincronizar numerito del menú con el del header
+if (DomElements.numeritoMenu) {
+    DomElements.numeritoMenu.textContent = numerito || 0;
+}
 if(numerito > 0) {
     carritoAgregados = localStorage.getItem("productos");
     carritoAgregados = JSON.parse(carritoAgregados);
@@ -157,4 +161,7 @@ if(numerito > 0) {
     numerito = 0;
     localStorage.setItem("numerito", numerito);
     DomElements.numeritoHeader.textContent = numerito;
+    if (DomElements.numeritoMenu) {
+        DomElements.numeritoMenu.textContent = numerito;
+    }
 }

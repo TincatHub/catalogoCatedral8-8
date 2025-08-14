@@ -144,6 +144,21 @@ DomElements.cerrarCarrito.addEventListener("click", function(){
     }
 });
 
+// SUPABASE INTEGRATION: Evento para botón del carrito en el menú
+if (DomElements.botonCarritoMenu) {
+    DomElements.botonCarritoMenu.addEventListener("click", function(e){
+        e.preventDefault();
+        console.log("Botón carrito menú clickeado");
+        if (DomElements.carrito) {
+            DomElements.carrito.classList.remove("cerrado");
+            console.log("Carrito abierto desde menú");
+        } else {
+            console.error("Elemento carrito no encontrado");
+        }
+    });
+} else {
+    console.error("Elemento botonCarritoMenu no encontrado");
+}
 // SUPABASE INTEGRATION: Actualizar numerito en header
 export function estaVacioCheck() {
     // Actualizar numerito en header
@@ -158,6 +173,18 @@ export function estaVacioCheck() {
         console.log("Numerito actualizado:", numerito);
     } else {
         console.error("Elemento numeritoHeader no encontrado");
+    }
+    
+    // Actualizar numerito en el menú
+    if (DomElements.numeritoMenu) {
+        DomElements.numeritoMenu.textContent = numerito;
+        
+        // Animación shake en menú
+        DomElements.numeritoMenu.classList.remove("shake");
+        void DomElements.numeritoMenu.offsetWidth; // Force reflow
+        DomElements.numeritoMenu.classList.add("shake");
+        
+        console.log("Numerito menú actualizado:", numerito);
     }
     
     if(numerito == "0" || numerito == null) {

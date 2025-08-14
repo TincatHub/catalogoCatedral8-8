@@ -594,6 +594,46 @@ footer .footerCarpi {
   border-bottom: 0;
 }
 
+/* Estilos para el botón del carrito en el menú */
+.hero__categorias__menu .carrito-menu a {
+  background: #170ad8;
+  color: white !important;
+  font-weight: 600;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.hero__categorias__menu .carrito-menu a:hover {
+  background: #0f0899;
+  color: white !important;
+}
+
+.hero__categorias__menu .carrito-menu a i {
+  font-size: 1.6rem;
+}
+
+.numerito-menu {
+  position: absolute;
+  top: -0.5rem;
+  right: 1rem;
+  background: #fd571b;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+}
+
+.numerito-menu p {
+  color: white;
+  margin: 0;
+  line-height: 1;
+  font-weight: 600;
+}
 .hero__slider {
   padding: 2rem 3rem;
 }
